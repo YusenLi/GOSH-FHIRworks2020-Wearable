@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="Tizen Wearable Web Basic Watch Face" />
+
+    <title>Home</title>
+
+	<link rel="stylesheet" href="css/tau.css"/>
+	<link rel="stylesheet" type="text/css" href="css/loading.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/record.css" />
+    <link rel="stylesheet" type="text/css" href="css/patientList.css" />
+</head>
+
+<body>
+	<div class="ui-page ui-page-active" id="homepage">
+		<div class="ui-content">
+    		<div class="container">
+    			<div class="background">
+    				<div class="components-main">
+            			<div>
+            			<a href="#patientListPage">
+            			<img class="box" id="patients" src="image/patient.png" ></img>
+            			</a>
+            			<img class="box" id="updateRecord" src="image/reload.png" onclick = "update()"></img>
+            			<p id = "processing"></p>
+            			</div>
+        			</div>
+            	</div>
+        	</div>
+      	</div>
+	</div>
+	
+	<div class="ui-page" id="patientListPage">
+		<div class="ui-content">
+			<div class="container">
+				<div class="background">
+					<div class="components-main">
+						<div id="patientList">
+						<!-- List of patients -->
+						</div>
+						<div id="FirstLetterSelector">
+	               			<p id="PreviousLetter"></p>
+	               			<p id="CurrentLetter"></p>
+	               			<p id="NextLetter"></p>
+	               		</div>
+	               		<div>
+						<a href="#homepage">
+						<img class="box" id="return_button" src="image/return.png"></img>
+						</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="ui-page" id="patientDetailPage">
+		<div class="ui-content">
+			<div class="container">
+				<div class="background">
+					<div class="components-main">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="ui-page" id="TBA">
+		<div class="ui-content">
+			<div class="container">
+				<div class="background">
+					<div class="components-main">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="js/tau.js"></script>
+	<script src="js/patientList.js"></script>
+    <script src="js/record.js"></script>
+    <script src="js/rotary.js"></script>
+</body>
+</html>

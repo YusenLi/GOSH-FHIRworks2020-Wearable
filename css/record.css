@@ -1,0 +1,32 @@
+.box{
+    position:absolute;
+    width:70px;
+    height:70px;
+    transform:translate(-50%,-50%);
+}
+
+#updateRecord {
+    top:50%;
+    left:65%;
+}
+
+#patients {
+    top:50%;
+    left:35%;
+}
+
+#processing{
+	position:absolute;
+	font-size: 30px;
+	white-space:nowrap;
+	top:15%;
+	left:14%;
+	color:white;
+}
+
+#return_button{
+	width:50px;
+	height:50px;
+	top:10%;
+	left:50%;
+}
