@@ -5,6 +5,7 @@ function init(){
 }
 
 function update(){
+	document.getElementById("processing").style.color = 'white';
 	document.getElementById("processing").innerHTML="updating the record";
 	
 	var requestURL = 'https://husky1.azurewebsites.net/api/Patient';
@@ -15,6 +16,7 @@ function update(){
 	
 	request.onload = function(){
 		patientRecord = request.response;
+		document.getElementById("processing").style.color = 'blue';
 		document.getElementById("processing").innerHTML="updating completed";
 		interval = setInterval(function(){
 			document.getElementById("processing").innerHTML = '';
