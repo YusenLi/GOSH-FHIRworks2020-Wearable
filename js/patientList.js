@@ -10,11 +10,12 @@
 
 var patientNames;
 
-var patientRecord;
+var patientRecord = {};
 
 function init(){
 	updateLetterSelector();
 	updatePatientList('A');
+	addWorkSpaceListScrollEvent();
 }
 
 function getPatientDetail(){
@@ -22,8 +23,9 @@ function getPatientDetail(){
 	var detailVal = new Array();
 }
 
-function jumptoDetailPage(){
+function jumptoDetailPage(bundleIndex, entryIndex){
 	tau.changePage("#patientDetailPage");
+	document.getElementById("haha").innerHTML = patientNames[bundleIndex][entryIndex];
 }
 
 function getPatientName(){
@@ -56,26 +58,42 @@ function updatePatientList(startLetter){
 	var length=patientNames.length;
 	for(var i=0; i<length;i++){
 		var jLength = patientNames[i].length;
+		let index1 = i;
 		for (var j = 0; j < jLength; j++) {
+			let index2= j;
 			if(patientNames[i][j].charAt(0)!=startLetter){
 				continue;
 			}
 			var patientBackground = document.createElement("div");
 			var patientName = document.createElement("p");
+			var patientIndex = document.createElement("p");
+			patientIndex.innerHTML = i;
+			patientIndex.style.display = "none";
 			patientBackground.classList.add("patientList_Background");
 			patientBackground.style.top = top;
 			patientBackground.addEventListener("click",function(){
-				jumptoDetailPage();
+				jumptoDetailPage(index1, index2);
 			});
+			/*patientBackground.addEventListener("click",(function(index) {return function() {
+				console.log(index1);
+				console.log(index2);
+				jumptoDetailPage(index1,index2);
+			};})(i));*/
 			patientName.classList.add("patientList_PersonName");
 			patientName.innerHTML = patientNames[i][j];
 			patientName.addEventListener("click",function(){
-				jumptoDetailPage();
+				jumptoDetailPage(index1, index2);
 			});
+			/*patientName.addEventListener("click",(function(index) {return function() {
+				console.log(index1);
+				console.log(index2);
+				jumptoDetailPage(index1,index2);
+			};})(i));*/
 			if(top == "27vw"){patientName.style.top = (parseInt(top)-5)+"vw";}
 			else{patientName.style.top = (parseInt(top)-4.5)+"vw";}
 			container.appendChild(patientName);
 			container.appendChild(patientBackground);
+			container.appendChild(patientIndex);
 			top=(parseInt(top)+17.5)+"vw";
 		}
 	}
@@ -128,6 +146,14 @@ function update(){
 		tau.changePage("#homepage");
 		showLoading(0);
 	};
+}
+
+function addWorkSpaceListScrollEvent() {
+	
+	var scrollEvent = function(){
+		var scrollTop = document.getElementById("patientList").scrollTop;
+	}
+	document.getElementById("patientList").addEventListener("scroll", scrollEvent);
 }
 
 window.onload=init();

@@ -15,16 +15,6 @@
     left:30%;
 }
 
-#processing{
-	position:absolute;
-	font-size: 30px;
-	white-space:nowrap;
-	transform:translate(-50%,-50%);
-	top:17.5%;
-	left:50%;
-	color:white;
-}
-
 #loading{
 	display: none;
 	position: absolute;
