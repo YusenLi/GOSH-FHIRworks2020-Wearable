@@ -1,4 +1,4 @@
-var patientNames=["Acer",
+/*var patientNames=["Acer",
 	                       "Adam",
 	                       "Barbara",
 	                       "Bryson",
@@ -6,7 +6,9 @@ var patientNames=["Acer",
 	                       "Bryan",
 	                       "Beck",
 	                       "Belen",
-	                       "Cody"];
+	                       "Cody"];*/
+
+var patientNames;
 
 var patientRecord;
 
@@ -20,7 +22,8 @@ function jumptoDetailPage(){
 	tau.changePage("#patientDetailPage");
 }
 
-/*function getPatientName(){
+function getPatientName(){
+	var jsonLength = patientRecord.length;
 	patientNames = new Array();
 	var count = 0;
 	for (var i = 0; i < jsonLength; i++) {
@@ -29,17 +32,16 @@ function jumptoDetailPage(){
 		for (var j = 0; j < entryLength; j++) {
 			given = entry[j].resource.name[0].given[0];
 			family = entry[j].resource.name[0].family;
-			name = given + family;
+			name = given + ', ' + family;
 			patientNames[count] = name;
 			count++;
 		}
 	}
 	return patientNames;
-}*/
+}
 
 function updatePatientList(startLetter){
-	//var jsonLength = patientRecord.length;
-	//var patientList_Names = getPatientName;
+	patientNames = getPatientName();
 	var container = document.getElementById("patientList");
 	var top = "27.5vw";
 	container.innerHTML = "";
@@ -54,19 +56,16 @@ function updatePatientList(startLetter){
 		patientBackground.style.top = top;
 		patientBackground.addEventListener("click",function(){
 			jumptoDetailPage();
-			//showWorkSpaceDetails(workSpaceList_SelectedType,i);
 		});
 		patientName.classList.add("patientList_PersonName");
 		patientName.innerHTML = patientNames[i];
-		//patientName.innerHTML = patientRecord[0].entry[0].resource.name[0].family;
 		patientName.addEventListener("click",function(){
 			jumptoDetailPage();
-			//showWorkSpaceDetails(workSpaceList_SelectedType,i);
 		});
+		if(top == "27vw"){patientName.style.top = (parseInt(top)-5)+"vw";}
+		else{patientName.style.top = (parseInt(top)-4.5)+"vw";}
 		container.appendChild(patientName);
 		container.appendChild(patientBackground);
-		if(top == "27vw") patientName.style.top = (parseInt(top)-5)+"vw";
-		else patientName.style.top = (parseInt(top)-4.5)+"vw";
 		top=(parseInt(top)+17.5)+"vw";
 	}
 }
@@ -95,8 +94,8 @@ function updateLetterSelector() {
 }
 
 function update(){
-	document.getElementById("processing").style.color = 'white';
-	document.getElementById("processing").innerHTML="updating the record";
+	document.getElementById("processing").style.color = '#00FFFF';
+	document.getElementById("processing").innerHTML="updating ...";
 	
 	var requestURL = 'https://husky1.azurewebsites.net/api/Patient';
 	var request = new XMLHttpRequest();

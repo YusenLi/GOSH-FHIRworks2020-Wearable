@@ -19,7 +19,8 @@
 	position:absolute;
 	font-size: 30px;
 	white-space:nowrap;
-	top:15%;
-	left:14%;
+	transform:translate(-50%,-50%);
+	top:17.5%;
+	left:50%;
 	color:white;
 }
