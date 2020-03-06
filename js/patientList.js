@@ -18,7 +18,8 @@ function init(){
 }
 
 function getPatientDetail(){
-	
+	var detailAtt = new Array();
+	var detailVal = new Array();
 }
 
 function jumptoDetailPage(){
@@ -26,50 +27,57 @@ function jumptoDetailPage(){
 }
 
 function getPatientName(){
+	var given;
+	var family;
+	var name;
+	var entry;
+	var entryLength;
 	var jsonLength = patientRecord.length;
 	patientNames = new Array();
-	var count = 0;
 	for (var i = 0; i < jsonLength; i++) {
+		var entryNames = new Array();
 		entry = patientRecord[i].entry;
 		entryLength = entry.length;
 		for (var j = 0; j < entryLength; j++) {
 			given = entry[j].resource.name[0].given[0];
 			family = entry[j].resource.name[0].family;
 			name = given + ', ' + family;
-			patientNames[count] = name;
-			count++;
+			entryNames[j] = name;
 		}
+		patientNames[i]=entryNames;
 	}
-	return patientNames;
 }
 
 function updatePatientList(startLetter){
-	patientNames = getPatientName();
+	getPatientName();
 	var container = document.getElementById("patientList");
 	var top = "27.5vw";
 	container.innerHTML = "";
 	var length=patientNames.length;
 	for(var i=0; i<length;i++){
-		if(patientNames[i].charAt(0)!=startLetter){
-			continue;
+		var jLength = patientNames[i].length;
+		for (var j = 0; j < jLength; j++) {
+			if(patientNames[i][j].charAt(0)!=startLetter){
+				continue;
+			}
+			var patientBackground = document.createElement("div");
+			var patientName = document.createElement("p");
+			patientBackground.classList.add("patientList_Background");
+			patientBackground.style.top = top;
+			patientBackground.addEventListener("click",function(){
+				jumptoDetailPage();
+			});
+			patientName.classList.add("patientList_PersonName");
+			patientName.innerHTML = patientNames[i][j];
+			patientName.addEventListener("click",function(){
+				jumptoDetailPage();
+			});
+			if(top == "27vw"){patientName.style.top = (parseInt(top)-5)+"vw";}
+			else{patientName.style.top = (parseInt(top)-4.5)+"vw";}
+			container.appendChild(patientName);
+			container.appendChild(patientBackground);
+			top=(parseInt(top)+17.5)+"vw";
 		}
-		var patientBackground = document.createElement("div");
-		var patientName = document.createElement("p");
-		patientBackground.classList.add("patientList_Background");
-		patientBackground.style.top = top;
-		patientBackground.addEventListener("click",function(){
-			jumptoDetailPage();
-		});
-		patientName.classList.add("patientList_PersonName");
-		patientName.innerHTML = patientNames[i];
-		patientName.addEventListener("click",function(){
-			jumptoDetailPage();
-		});
-		if(top == "27vw"){patientName.style.top = (parseInt(top)-5)+"vw";}
-		else{patientName.style.top = (parseInt(top)-4.5)+"vw";}
-		container.appendChild(patientName);
-		container.appendChild(patientBackground);
-		top=(parseInt(top)+17.5)+"vw";
 	}
 }
 
