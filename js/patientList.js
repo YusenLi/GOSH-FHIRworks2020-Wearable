@@ -8,6 +8,8 @@ var patientList_Names=["Acer",
 	                       "Belen",
 	                       "Cody"];
 
+var patientRecord;
+
 function init(){
 	//document.getElementById("processing").innerHTML="updating the record";
 	updateLetterSelector();
@@ -18,12 +20,30 @@ function jumptoDetailPage(){
 	tau.changePage("#patientDetailPage");
 }
 
+function getPatientName(){
+	patientNames = new Array();
+	var count = 0;
+	for (var i = 0; i < jsonLength; i++) {
+		entry = patientRecord[i].entry;
+		entryLength = entry.length;
+		for (var j = 0; j < entryLength; j++) {
+			given = entry[j].resource.name[0].given[0];
+			family = entry[j].resource.name[0].family;
+			name = given + family;
+			patientNames[count] = name;
+			count++;
+		}
+	}
+	return patientNames;
+}
+
 function updatePatientList(startLetter){
+	//var jsonLength = patientRecord.length;
+	//var patientList_Names = getPatientName;
 	var container = document.getElementById("patientList");
 	var top = "27.5vw";
 	container.innerHTML = "";
 	var length=patientList_Names.length;
-	//var plength= patientRecord.length;
 	for(var i=0; i<length;i++){
 		if(patientList_Names[i].charAt(0)!=startLetter){
 			continue;
@@ -38,6 +58,7 @@ function updatePatientList(startLetter){
 		});
 		patientName.classList.add("patientList_PersonName");
 		patientName.innerHTML = patientList_Names[i];
+		//patientName.innerHTML = patientRecord[0].entry[0].resource.name[0].family;
 		patientName.addEventListener("click",function(){
 			jumptoDetailPage();
 			//showWorkSpaceDetails(workSpaceList_SelectedType,i);
@@ -71,6 +92,27 @@ function updateLetterSelector() {
 	CurrentLetterElement.innerHTML=String.fromCharCode(currentLetterCode);
 	NextLetterElement.innerHTML=String.fromCharCode(nextLetter);
 	updatePatientList(String.fromCharCode(currentLetterCode));
+}
+
+function update(){
+	document.getElementById("processing").style.color = 'white';
+	document.getElementById("processing").innerHTML="updating the record";
+	
+	var requestURL = 'https://husky1.azurewebsites.net/api/Patient';
+	var request = new XMLHttpRequest();
+	request.open('GET', requestURL);
+	request.responseType = 'json';
+	request.send();
+	
+	request.onload = function(){
+		patientRecord = request.response;
+		document.getElementById("processing").style.color = 'blue';
+		document.getElementById("processing").innerHTML="updating completed";
+		interval = setInterval(function(){
+			document.getElementById("processing").innerHTML = '';
+			clearInterval(interval);
+		}, 2000);
+	};
 }
 
 window.onload=init();
