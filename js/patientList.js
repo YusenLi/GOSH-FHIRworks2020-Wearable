@@ -13,9 +13,12 @@ var patientNames;
 var patientRecord;
 
 function init(){
-	//document.getElementById("processing").innerHTML="updating the record";
 	updateLetterSelector();
 	updatePatientList('A');
+}
+
+function getPatientDetail(){
+	
 }
 
 function jumptoDetailPage(){
@@ -93,9 +96,18 @@ function updateLetterSelector() {
 	updatePatientList(String.fromCharCode(currentLetter));
 }
 
+function showLoading(show) {
+	if(show){
+		document.getElementById("loading").style.display = "block";
+	}
+	else{
+		document.getElementById("loading").style.display = "none";
+	}
+}
+
 function update(){
-	document.getElementById("processing").style.color = '#00FFFF';
-	document.getElementById("processing").innerHTML="updating ...";
+	showLoading(1);
+	tau.changePage("#loadingPage");
 	
 	var requestURL = 'https://husky1.azurewebsites.net/api/Patient';
 	var request = new XMLHttpRequest();
@@ -105,12 +117,8 @@ function update(){
 	
 	request.onload = function(){
 		patientRecord = request.response;
-		document.getElementById("processing").style.color = 'blue';
-		document.getElementById("processing").innerHTML="updating completed";
-		interval = setInterval(function(){
-			document.getElementById("processing").innerHTML = '';
-			clearInterval(interval);
-		}, 2000);
+		tau.changePage("#homepage");
+		showLoading(0);
 	};
 }
 
