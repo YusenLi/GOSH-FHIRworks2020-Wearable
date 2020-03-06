@@ -1,4 +1,4 @@
-var patientList_Names=["Acer",
+var patientNames=["Acer",
 	                       "Adam",
 	                       "Barbara",
 	                       "Bryson",
@@ -20,7 +20,7 @@ function jumptoDetailPage(){
 	tau.changePage("#patientDetailPage");
 }
 
-function getPatientName(){
+/*function getPatientName(){
 	patientNames = new Array();
 	var count = 0;
 	for (var i = 0; i < jsonLength; i++) {
@@ -35,7 +35,7 @@ function getPatientName(){
 		}
 	}
 	return patientNames;
-}
+}*/
 
 function updatePatientList(startLetter){
 	//var jsonLength = patientRecord.length;
@@ -43,9 +43,9 @@ function updatePatientList(startLetter){
 	var container = document.getElementById("patientList");
 	var top = "27.5vw";
 	container.innerHTML = "";
-	var length=patientList_Names.length;
+	var length=patientNames.length;
 	for(var i=0; i<length;i++){
-		if(patientList_Names[i].charAt(0)!=startLetter){
+		if(patientNames[i].charAt(0)!=startLetter){
 			continue;
 		}
 		var patientBackground = document.createElement("div");
@@ -57,7 +57,7 @@ function updatePatientList(startLetter){
 			//showWorkSpaceDetails(workSpaceList_SelectedType,i);
 		});
 		patientName.classList.add("patientList_PersonName");
-		patientName.innerHTML = patientList_Names[i];
+		patientName.innerHTML = patientNames[i];
 		//patientName.innerHTML = patientRecord[0].entry[0].resource.name[0].family;
 		patientName.addEventListener("click",function(){
 			jumptoDetailPage();
@@ -71,27 +71,27 @@ function updatePatientList(startLetter){
 	}
 }
 
-var currentLetterCode = 'A'.charCodeAt(0);
+var currentLetter = 'A'.charCodeAt(0);
 
-var PreviousLetterElement = document.getElementById("patientListPage").querySelector("#PreviousLetter");
-var CurrentLetterElement = document.getElementById("patientListPage").querySelector("#CurrentLetter");
-var NextLetterElement = document.getElementById("patientListPage").querySelector("#NextLetter");
+var previousLetterE = document.getElementById("patientListPage").querySelector("#PreviousLetter");
+var currentLetterE = document.getElementById("patientListPage").querySelector("#CurrentLetter");
+var nextLetterE = document.getElementById("patientListPage").querySelector("#NextLetter");
 
 function updateLetterSelector() {
-	if(currentLetterCode < 'A'.charCodeAt(0)) {
-		currentLetterCode = 'A'.charCodeAt(0);
+	if(currentLetter < 'A'.charCodeAt(0)) {
+		currentLetter = 'A'.charCodeAt(0);
 		return;
 	}
-	if(currentLetterCode > 'Z'.charCodeAt(0)) {
-		currentLetterCode = 'Z'.charCodeAt(0);
+	if(currentLetter > 'Z'.charCodeAt(0)) {
+		currentLetter = 'Z'.charCodeAt(0);
 		return;
 	}
-	var previousLetter = currentLetterCode-1 < ( 'A'.charCodeAt(0) ) ? 32/*White space*/ : currentLetterCode-1;
-	var nextLetter = currentLetterCode+1 > ( 'Z'.charCodeAt(0) ) ? 32/*White space*/ : currentLetterCode+1;
-	PreviousLetterElement.innerHTML=String.fromCharCode(previousLetter);
-	CurrentLetterElement.innerHTML=String.fromCharCode(currentLetterCode);
-	NextLetterElement.innerHTML=String.fromCharCode(nextLetter);
-	updatePatientList(String.fromCharCode(currentLetterCode));
+	var previousLetter = currentLetter-1 < ( 'A'.charCodeAt(0) ) ? 32/*White space*/ : currentLetter-1;
+	var nextLetter = currentLetter+1 > ( 'Z'.charCodeAt(0) ) ? 32/*White space*/ : currentLetter+1;
+	previousLetterE.innerHTML=String.fromCharCode(previousLetter);
+	currentLetterE.innerHTML=String.fromCharCode(currentLetter);
+	nextLetterE.innerHTML=String.fromCharCode(nextLetter);
+	updatePatientList(String.fromCharCode(currentLetter));
 }
 
 function update(){

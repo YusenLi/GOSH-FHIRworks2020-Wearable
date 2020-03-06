@@ -1,13 +1,13 @@
 function rotateCW() {
 		if(document.getElementById("patientListPage").classList.contains("ui-page-active")) {
-			currentLetterCode++;
+			currentLetter++;
 			updateLetterSelector();
 		}
 	}
 	
 function rotateCCW() {
 		if(document.getElementById("patientListPage").classList.contains("ui-page-active")) {
-			currentLetterCode--;
+			currentLetter--;
 			updateLetterSelector();
 		}
 	}
