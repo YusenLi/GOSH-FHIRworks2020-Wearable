@@ -26,10 +26,12 @@ function getPatientDetail(i, j){
 	detailVal = new Array();
 	detailVal[0] = patientRecord[i].entry[j].resource.name[0].family;
 	detailVal[1] = patientRecord[i].entry[j].resource.name[0].given[0];
-	detailVal[2] = patientRecord[i].entry[j].resource.identifier[1].value;
-	detailVal[3] = patientRecord[i].entry[j].resource.identifier[2].value;
-	detailVal[4] = patientRecord[i].entry[j].resource.identifier[3].value;
-	detailVal[5] = patientRecord[i].entry[j].resource.identifier[4].value;
+	for(var k = 1; k < 5; k++){
+		if(patientRecord[i].entry[j].resource.identifier[k] == undefined){
+			detailVal[k+1] = null;
+		}
+		else{detailVal[k+1] = patientRecord[i].entry[j].resource.identifier[k].value;}
+	}
 }
 
 function updatePatientDetail(){
@@ -38,6 +40,9 @@ function updatePatientDetail(){
 	container.innerHTML = "";
 	var length=detailAtt.length;
 	for(var i=0; i<length;i++){
+		if(detailVal[i] == null){
+			continue;
+		}
 		var detailBackground = document.createElement("div");
 		var detailEach = document.createElement("p");
 		detailBackground.classList.add("detail_Background");
