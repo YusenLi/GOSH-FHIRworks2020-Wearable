@@ -50,6 +50,10 @@ function updatePatientDetail(){
 		container.appendChild(detailEach);
 		top=(parseInt(top)+17.5)+"vw";
 	}
+	var toHide = document.createElement("div");
+	toHide.classList.add("hideObj");
+	toHide.style.top = top;
+	container.appendChild(toHide);
 }
 
 function jumptoDetailPage(i, j){
@@ -113,6 +117,10 @@ function updatePatientList(startLetter){
 			top=(parseInt(top)+17.5)+"vw";
 		}
 	}
+	var toHide = document.createElement("div");
+	toHide.classList.add("hideObj");
+	toHide.style.top = top;
+	container.appendChild(toHide);
 }
 
 var currentLetter = 'A'.charCodeAt(0);
