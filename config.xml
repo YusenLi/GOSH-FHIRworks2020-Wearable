@@ -8,4 +8,6 @@
     <icon src="icon.png"/>
     <name>WearableFHIR</name>
     <tizen:profile name="wearable"/>
+    <access origin="*" subdomains="true"></access>   
+	<tizen:privilege name="http://tizen.org/privilege/internet"/>
 </widget>
