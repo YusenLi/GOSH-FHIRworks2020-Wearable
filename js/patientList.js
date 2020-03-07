@@ -8,7 +8,7 @@
 	                       "Belen",
 	                       "Cody"];*/
 
-var detailAtt = ["Family Name", "Given Name"];
+var detailAtt = ["Family Name", "Given Name", "Medical Record Number", "Social Security Number", "Driver's License", "Passport Number"];
 
 var patientNames;
 
@@ -26,6 +26,10 @@ function getPatientDetail(i, j){
 	detailVal = new Array();
 	detailVal[0] = patientRecord[i].entry[j].resource.name[0].family;
 	detailVal[1] = patientRecord[i].entry[j].resource.name[0].given[0];
+	detailVal[2] = patientRecord[i].entry[j].resource.identifier[1].value;
+	detailVal[3] = patientRecord[i].entry[j].resource.identifier[2].value;
+	detailVal[4] = patientRecord[i].entry[j].resource.identifier[3].value;
+	detailVal[5] = patientRecord[i].entry[j].resource.identifier[4].value;
 }
 
 function updatePatientDetail(){

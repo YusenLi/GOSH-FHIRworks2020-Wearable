@@ -19,7 +19,7 @@ function rotateCCW() {
 	        if(direction==='CCW') {
 	        	rotateCCW();
 	        }else {rotateCW();}
-	    });
+	    }, false);
 	}
 
 	function init() {
