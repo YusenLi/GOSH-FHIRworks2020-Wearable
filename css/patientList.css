@@ -29,7 +29,6 @@
     z-index: 1;
 }
 
-
 #PreviousLetter {
     position: absolute;
     left: 93%;
@@ -52,11 +51,4 @@
     top: 53%;
     font-size: 4vw;
     opacity:0.3;
-}
-
-#haha {
-	position: absolute;
-	transform: translateX(-50%) translateY(-50%);
-	left: 50%;
-	top: 50%;
 }

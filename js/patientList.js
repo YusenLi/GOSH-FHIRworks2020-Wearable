@@ -8,24 +8,50 @@
 	                       "Belen",
 	                       "Cody"];*/
 
+var detailAtt = ["Family Name", "Given Name"];
+
 var patientNames;
 
 var patientRecord = {};
 
+var detailVal;
+
 function init(){
 	updateLetterSelector();
 	updatePatientList('A');
-	addWorkSpaceListScrollEvent();
+	addScrollEvent();
 }
 
-function getPatientDetail(){
-	var detailAtt = new Array();
-	var detailVal = new Array();
+function getPatientDetail(i, j){
+	detailVal = new Array();
+	detailVal[0] = patientRecord[i].entry[j].resource.name[0].family;
+	detailVal[1] = patientRecord[i].entry[j].resource.name[0].given[0];
 }
 
-function jumptoDetailPage(bundleIndex, entryIndex){
+function updatePatientDetail(){
+	var container = document.getElementById("detail");
+	var top = "27.5vw";
+	container.innerHTML = "";
+	var length=detailAtt.length;
+	for(var i=0; i<length;i++){
+		var detailBackground = document.createElement("div");
+		var detailEach = document.createElement("p");
+		detailBackground.classList.add("detail_Background");
+		detailBackground.style.top = top;
+		detailEach.classList.add("detail_Each");
+		detailEach.innerHTML = detailAtt[i] + ": " + detailVal[i];
+		if(top == "27vw"){detailEach.style.top = (parseInt(top)-5)+"vw";}
+		else{detailEach.style.top = (parseInt(top)-4.5)+"vw";}
+		container.appendChild(detailBackground);
+		container.appendChild(detailEach);
+		top=(parseInt(top)+17.5)+"vw";
+	}
+}
+
+function jumptoDetailPage(i, j){
+	getPatientDetail(i, j);
+	updatePatientDetail();
 	tau.changePage("#patientDetailPage");
-	document.getElementById("haha").innerHTML = patientNames[bundleIndex][entryIndex];
 }
 
 function getPatientName(){
@@ -66,34 +92,20 @@ function updatePatientList(startLetter){
 			}
 			var patientBackground = document.createElement("div");
 			var patientName = document.createElement("p");
-			var patientIndex = document.createElement("p");
-			patientIndex.innerHTML = i;
-			patientIndex.style.display = "none";
 			patientBackground.classList.add("patientList_Background");
 			patientBackground.style.top = top;
 			patientBackground.addEventListener("click",function(){
 				jumptoDetailPage(index1, index2);
 			});
-			/*patientBackground.addEventListener("click",(function(index) {return function() {
-				console.log(index1);
-				console.log(index2);
-				jumptoDetailPage(index1,index2);
-			};})(i));*/
 			patientName.classList.add("patientList_PersonName");
 			patientName.innerHTML = patientNames[i][j];
 			patientName.addEventListener("click",function(){
 				jumptoDetailPage(index1, index2);
 			});
-			/*patientName.addEventListener("click",(function(index) {return function() {
-				console.log(index1);
-				console.log(index2);
-				jumptoDetailPage(index1,index2);
-			};})(i));*/
 			if(top == "27vw"){patientName.style.top = (parseInt(top)-5)+"vw";}
 			else{patientName.style.top = (parseInt(top)-4.5)+"vw";}
 			container.appendChild(patientName);
 			container.appendChild(patientBackground);
-			container.appendChild(patientIndex);
 			top=(parseInt(top)+17.5)+"vw";
 		}
 	}
@@ -148,7 +160,7 @@ function update(){
 	};
 }
 
-function addWorkSpaceListScrollEvent() {
+function addScrollEvent() {
 	
 	var scrollEvent = function(){
 		var scrollTop = document.getElementById("patientList").scrollTop;
