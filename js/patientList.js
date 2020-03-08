@@ -8,7 +8,18 @@
 	                       "Belen",
 	                       "Cody"];*/
 
-var detailAtt = ["Family Name", "Given Name", "Medical Record Number", "Social Security Number", "Driver's License", "Passport Number"];
+var detailAtt = ["Family Name", //0
+                 "Given Name", //1
+                 "Medical Record Number", //2
+                 "Social Security Number", //3
+                 "Driver's License", //4
+                 "Passport Number", //5
+                 "Home Phone Number", //6
+                 "Gender", //7
+                 "Birthdate", //8
+                 "Deceased Datetime", //9
+                 "Address" //10
+                 ]; 
 
 var patientNames;
 
@@ -32,6 +43,11 @@ function getPatientDetail(i, j){
 		}
 		else{detailVal[k+1] = patientRecord[i].entry[j].resource.identifier[k].value;}
 	}
+	detailVal[6] = patientRecord[i].entry[j].resource.telecom[0].value;
+	detailVal[7] = patientRecord[i].entry[j].resource.gender;
+	detailVal[8] = patientRecord[i].entry[j].resource.birthDate;
+	detailVal[9] = patientRecord[i].entry[j].resource.deceasedDateTime;
+	detailVal[10] = patientRecord[i].entry[j].resource.address[0].line[0] + ", " + patientRecord[i].entry[j].resource.address[0].city + ", " + patientRecord[i].entry[j].resource.address[0].state + ", " + patientRecord[i].entry[j].resource.address[0].country;
 }
 
 function updatePatientDetail(){
