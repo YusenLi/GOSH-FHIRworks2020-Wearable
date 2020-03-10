@@ -24,3 +24,12 @@
 	left: 50%;
 
 }
+
+.time {
+    position: absolute;
+    color: white;
+    transform: translate(-50%,-50%);
+    font-size: 6vw;
+    top: 1%;
+    left: 50%;
+}

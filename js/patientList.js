@@ -1,13 +1,3 @@
-/*var patientNames=["Acer",
-	                       "Adam",
-	                       "Barbara",
-	                       "Bryson",
-	                       "Bella",
-	                       "Bryan",
-	                       "Beck",
-	                       "Belen",
-	                       "Cody"];*/
-
 var detailAtt = ["Family Name", //0
                  "Given Name", //1
                  "Medical Record Number", //2
@@ -30,6 +20,7 @@ var patientRecord = {};
 var detailVal;
 
 function init(){
+	updateTime();
 	updateLetterSelector();
 	updatePatientList('A');
 	addScrollEvent();
@@ -209,11 +200,33 @@ function update(){
 }
 
 function addScrollEvent() {
-	
 	var scrollEvent = function(){
-		var scrollTop = document.getElementById("patientList").scrollTop;
+		var listTop = document.getElementById("patientList").scrollTop;
+		var detailTop = document.getElementById("detail").scrollTop;
+		if(listTop>10) {
+			document.getElementById("listTime").style.visibility="hidden";
+		}else{
+			document.getElementById("listTime").style.visibility="visible";
+		}
+		if(detailTop>10) {
+			document.getElementById("detailTime").style.visibility="hidden";
+		}else{
+			document.getElementById("detailTime").style.visibility="visible";
+		}
 	}
 	document.getElementById("patientList").addEventListener("scroll", scrollEvent);
+}
+
+setInterval(updateTime,1000);
+
+function updateTime(){
+	 var datetime = tizen.time.getCurrentDateTime(),
+     hour = datetime.getHours(),
+     minute = datetime.getMinutes();
+	 var clock = document.getElementsByClassName("time");
+	 for(var i = 0;i < clock.length; i++){
+		 clock[i].innerHTML = hour + ":" + minute;
+	 }
 }
 
 window.onload=init();

@@ -5,6 +5,10 @@
     height: 100%;
 }
 
+#detail::-webkit-scrollbar { 
+	display: none; 
+} 
+
 .detail_Background {
 	background-Color: #4169E1;
 	position: absolute;
