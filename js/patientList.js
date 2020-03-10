@@ -18,7 +18,9 @@ var detailAtt = ["Family Name", //0
                  "Gender", //7
                  "Birthdate", //8
                  "Deceased Datetime", //9
-                 "Address" //10
+                 "Address", //10
+                 "Marital Status", //11
+                 "Language" //12
                  ]; 
 
 var patientNames;
@@ -35,19 +37,32 @@ function init(){
 
 function getPatientDetail(i, j){
 	detailVal = new Array();
-	detailVal[0] = patientRecord[i].entry[j].resource.name[0].family;
-	detailVal[1] = patientRecord[i].entry[j].resource.name[0].given[0];
+	var res = patientRecord[i].entry[j].resource;
+	detailVal[0] = res.name[0].family;
+	detailVal[1] = res.name[0].given[0];
 	for(var k = 1; k < 5; k++){
-		if(patientRecord[i].entry[j].resource.identifier[k] == undefined){
+		if(res.identifier[k] == undefined){
 			detailVal[k+1] = null;
 		}
-		else{detailVal[k+1] = patientRecord[i].entry[j].resource.identifier[k].value;}
+		else{detailVal[k+1] = res.identifier[k].value;}
 	}
-	detailVal[6] = patientRecord[i].entry[j].resource.telecom[0].value;
-	detailVal[7] = patientRecord[i].entry[j].resource.gender;
-	detailVal[8] = patientRecord[i].entry[j].resource.birthDate;
-	detailVal[9] = patientRecord[i].entry[j].resource.deceasedDateTime;
-	detailVal[10] = patientRecord[i].entry[j].resource.address[0].line[0] + ", " + patientRecord[i].entry[j].resource.address[0].city + ", " + patientRecord[i].entry[j].resource.address[0].state + ", " + patientRecord[i].entry[j].resource.address[0].country;
+	detailVal[6] = res.telecom[0].value;
+	detailVal[7] = res.gender;
+	detailVal[8] = res.birthDate;
+	detailVal[9] = res.deceasedDateTime;
+	detailVal[10] = res.address[0].line[0] + ", " + res.address[0].city + ", " + res.address[0].state + ", " + res.address[0].country;
+	var maritalCode = res.maritalStatus.coding[0].code;
+	detailVal[11] = getMartialStatus(maritalCode);
+	detailVal[12] = res.communication[0].language.text;
+}
+
+function getMartialStatus(code){
+	switch(code){
+	case 'S':
+		return "Never Married"
+	case 'M':
+		return "Married"
+	}
 }
 
 function updatePatientDetail(){
