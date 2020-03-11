@@ -215,6 +215,7 @@ function addScrollEvent() {
 		}
 	}
 	document.getElementById("patientList").addEventListener("scroll", scrollEvent);
+	document.getElementById("detail").addEventListener("scroll", scrollEvent);
 }
 
 setInterval(updateTime,1000);
