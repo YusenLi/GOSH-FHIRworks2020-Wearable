@@ -1,2 +1,4 @@
 # GOSH-FHIRworks2020-Wearable
-This is the project that could running on a galaxy watch which shows the user the detailed patient record. The project could be built and run on Tizen Studio which is Samsung's developement tool. Also, a 30s video is recorded to show the features the application provides on a real device.
+This project is built using Tizen Studio, Samsung's development tool. The application is supported to run on any galaxy watch and it enables users to have a detailed look at the patients' data that provided by FHIR database in a simple way.
+
+Also, a 30s video is recorded and submitted to Moodle to show the features the application has on a real device(Galaxy Watch).
